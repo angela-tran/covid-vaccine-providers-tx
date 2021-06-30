@@ -2,6 +2,8 @@
 This repo documents some work I did to try and help during the initial rollout of the COVID-19 vaccine.
 
 ### Background
+![image](vaccinemap.jpg)
+
 In December 2020, the Texas Department of State Health Services [released a dashboard](https://twitter.com/texasdshs/status/1344047679756763136) where users could find vaccine providers near them. This was helpful, but for actually figuring out if one could get the vaccine at a location, the recommendation was to just call the provider and ask.
 
 I saw a [post](https://old.reddit.com/r/Dallas/comments/kpt90g/website_to_crowdsource_info_about_the_covid_19/) in the /r/Dallas subreddit from someone who had created a website to crowdsource information on the vaccine providers. 

@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+import os
 import requests
 import json
 import csv
@@ -12,7 +14,10 @@ def main():
 
     field_names = ["OBJECTID", "ProviderNa", "Address", "City", "State", "Zip", "County", "Phone", "Website", "PfizerTota", "ModernaTot", "OrgGroup", "Allocation", "COVID_ID", "Provider_P"]
 
-    with open('providers.csv', mode='w') as output_file:
+    os.makedirs("output", exist_ok=True)
+    output_file_name = f"./output/providers-{datetime.now(timezone.utc).isoformat()}.csv"
+
+    with open(output_file_name, mode='w') as output_file:
         providers_writer = csv.writer(output_file, delimiter='\t', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
         providers_writer.writerow(field_names)
@@ -21,11 +26,12 @@ def main():
             page = json.loads(requests.get(provider_info_url(offset, page_size)).text)["features"]
             offset += page_size
 
-            for p in page:
-                provider_attributes = p["attributes"]
+            for provider in page:
+                provider_attributes = provider["attributes"]
                 row = []
-                for f in field_names:
-                    row.append(provider_attributes[f])
+                for field in field_names:
+                    field_value = str(provider_attributes[field]).replace('\n', ' ')
+                    row.append(field_value)
                 providers_writer.writerow(row)
 
 def provider_info_url(offset, page_size):
